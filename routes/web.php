@@ -41,6 +41,4 @@ Route::get('triathlon-details/editevent/{id1}/{id2}', 'TriathlonDetailsControlle
 Route::resource('triathlon-details', 'TriathlonDetailsController');
 
 
-
-
 Route::get('/home', 'HomeController@index')->name('home');

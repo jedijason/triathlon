@@ -24,7 +24,6 @@
         <td>{{$triDetail->minutes}}</td>
         <td>{{$triDetail->miles}}</td>
         <td>{{$triDetail->kms}}</td>
-        <td style="display: none">{{$triDetail->tri_id}}</td>
     </tr>
     
     @endforeach

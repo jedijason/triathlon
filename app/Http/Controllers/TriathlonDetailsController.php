@@ -32,7 +32,7 @@ class TriathlonDetailsController extends Controller
             ->join('div_details',  function($join){ 
                 $join->on('div_details.act_id', '=', 'tri_details.act_id' )
                     ->on('div_details.div_id', '=', 'tri_details.div_id')
-                    ->where('usr_id', '1');
+                    ->where('usr_id', Auth()->user()->id );
             })
             ->groupBy('tri_details.div_id', 'tri_details.tri_id', 'tri_details.usr_id');
         // step 2 of 2
