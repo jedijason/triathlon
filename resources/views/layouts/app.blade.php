@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -18,6 +19,18 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
+
+<!-- datepicker for registration, triathlons\create \edit -->
+
+  
+
+
+
+
+
+
 </head>
 <body>
     <div id="app">
@@ -37,13 +50,25 @@
                             <a class="nav-link" href="/triathlon-details/create">Add</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/triathlon-details">My Stats</a>
+                        <a class="nav-link" href="/triathlon-details/{{Auth()->user()->id}}">My Events</a>
                         </li> 
+                        <li class="nav-item">
+                            <a class="nav-link" href="/triathlon-details/">Everyone</a>
+                        </li>
+                        @if(Auth::user()->hasRole('superadministrator'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="/triathlons/create">Add Triathlons</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/triathlons">View Triathlons</a>
+                            </li>
+                        @endif
                     </ul>
-                </div>
                 @endauth
+                
+                
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                        <ul class="navbar-nav ml-auto">
                         <li>
                             <a class="nav-link" href="/about">About</a>
                         </li>
@@ -64,7 +89,7 @@
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->first_name }} <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -89,5 +114,12 @@
             @yield('content')
         </main>
     </div>
+
+
+
+
+
+
+
 </body>
 </html>

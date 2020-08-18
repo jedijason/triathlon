@@ -561,4 +561,68 @@ $triDetails = DB::table('users')
 
 
 
+                       @if(Auth::user() && Auth::user()->role == 'admin')
+                       <li class="nav-item">
+                           <a class="nav-link" href="/triathlon-details/addtriathlon">Add Triathlon</a>
+                       </li>
+
+
+
+                       <div class="form-group">
+                        {{Form::label('division_name', 'Division Name') }}
+                        {{Form::select('div_id', $divisions, ['class' => 'form-control', 'placeholder' => 'Division Name'])}}
+                    </div>
+                    <div class="form-group">
+                        {{Form::label('activity_name', 'Activity Name') }}
+                        {{Form::select('act_id', $activities, ['class' => 'form-control', 'placeholder' => 'Activity name'])}}
+                    </div>
+                    <div class="form-group">
+                        {{Form::label('minutes', 'Minutes') }}
+                        {{Form::text('minutes', '', ['class' => 'form-control', 'placeholder' => 'Minutes'])}}
+                    </div>
+
+
+
+
+
+
+                    <table class="table table-responsive">
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Triathlon</th>
+                            <th>Division</th>
+                            <th>Activity</th>
+                            <th>Total Minutes</th>
+                            <th>Total Miles</th>
+                            <th>Total Kilometers</th>
+                        </tr>
+                        @foreach ($triDetails as $triDetail)
+                        <tr>
+                            <td>{{$triDetail->first_name}}</td>
+                            <td>{{$triDetail->last_name}}</td>
+                            <td>{{$triDetail->triathlon_name}}</td>
+                            <td>{{$triDetail->division_name}}</td>
+                            <td>{{$triDetail->activity_name}}</td>
+                            <td>{{$triDetail->minutes}}</td>
+                            <td>{{$triDetail->miles}}</td>
+                            <td>{{$triDetail->kms}}</td>
+                        </tr>
+                        
+                        @endforeach
+                    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

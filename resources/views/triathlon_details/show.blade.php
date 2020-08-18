@@ -1,25 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-<a href="/posts" class="btn btn-default">Go Back</a>
-<h1>{{$post->title}}</h1>
 
-<div class="col-md-12">
-    <img style="width: 100%" src="/storage/cover_images/{{$post->cover_image}}" alt="">
-
-</div>
-
-<p>{{$post->body}}</p>
-
-
-@if(!Auth::guest())
-    @if(Auth::user()->id == $post->user_id)
-        <a href="/posts/{{$post->id}}/edit" class="btn btn-default">Edit</a>
-        {!!Form::open(['action' => ['PostsController@destroy', $post->id], 'method' =>'POST', 'class' => 'pull-right'])!!}
-        {{Form::hidden('_method', 'DELETE')}}
-        {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
-        {!!Form::close()!!}
-    @endif
-@endif
-
+    @auth
+        <h3>My Events</h3>
+        @if(count($triDetails) > 0 )
+            <table class="table table-hover">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Triathlon</th>
+                    <th>Division</th>
+                    <th>Total Minutes</th>
+                    <th>Total Miles</th>
+                    <th>Total Kilometers</th>
+                </tr>
+                @foreach ($triDetails as $triDetail)
+                <tr>
+                    <td>{{$triDetail->first_name}}</td>
+                    <td>{{$triDetail->last_name}}</td>
+                    <td> <a href="/triathlon-details/showevent/{{$triDetail->tri_id}}/{{$triDetail->div_id}}"> {{$triDetail->triathlon_name}} </a> </td>
+                    <td>{{$triDetail->division_name}}</td>
+                    <td>{{$triDetail->minutes}}</td>
+                    <td>{{$triDetail->miles}}</td>
+                    <td>{{$triDetail->kms}}</td>
+                </tr>
+                @endforeach
+            </table>
+        @else
+        <p>You have no events to display or something went wrong with show.</p>
+        @endif
+    @else
+        <p>Login in to view stats</p>    
+    @endauth
 @endsection
+
+
+
+

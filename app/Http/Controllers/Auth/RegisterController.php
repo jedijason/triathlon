@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Rules\Sex;
 
 class RegisterController extends Controller
 {
@@ -29,7 +30,11 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // origianl
+     //protected $redirectTo = RouteServiceProvider::HOME;
+
+    // updated to support different user roles. from video
+        protected $redirectTo = '/triathlon-details';
 
     /**
      * Create a new controller instance.
@@ -48,11 +53,20 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {
+    {   /* original
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);//*/
+        return Validator::make($data, [
+           'first_name' => ['required', 'string', 'max:50' ],
+           'last_name' =>  ['required', 'string', 'max:50' ],
+           'dob' =>        ['required', 'string', 'max:191'],
+           'sex' =>        ['required', 'string', 'max:1', new Sex  ],
+           'email' =>      ['required', 'string', 'email', 'max:255', 'unique:users'],
+           'password' =>   ['required', 'string', 'min:8', 'confirmed'],
+           
         ]);
     }
 
@@ -63,11 +77,25 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {   /* original
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+        ]);//*/
+            // attempt to add user roles. following video instructions
+       
+       
+        $user = User::create([
+            'first_name' => $data['first_name'],
+            'last_name'  => $data['last_name'],
+            'dob'        => $data['dob'],
+            'sex'        => $data['sex'],
+            'email'      => $data['email'],
+            'password'   => Hash::make($data['password']),
         ]);
+        $user->attachRole('user'); // or admin or superadministrator etc
+        return $user;
+
     }
 }

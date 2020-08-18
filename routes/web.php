@@ -32,13 +32,19 @@ Route::get('/about', function () {
 
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
+Route::get('/datepicker', function() {
+    return view('pages.datepicker');
+});
+
 
 Auth::routes();
 Route::resource('posts', 'PostsController');
+
 Route::delete('triathlon-details/destroy2/{id1}/{id2}', 'TriathlonDetailsController@destroy2');
 Route::get('triathlon-details/showevent/{id1}/{id2}', 'TriathlonDetailsController@showevent');
 Route::get('triathlon-details/editevent/{id1}/{id2}', 'TriathlonDetailsController@editevent');
 Route::resource('triathlon-details', 'TriathlonDetailsController');
 
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('triathlons', 'TriathlonsController');
