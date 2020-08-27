@@ -37,7 +37,10 @@ Route::get('/datepicker', function() {
 });
 
 
-Auth::routes();
+//Auth::routes();
+// change when adding email verification code
+Auth::routes(['verify' => true]);
+
 Route::resource('posts', 'PostsController');
 
 Route::delete('triathlon-details/destroy2/{id1}/{id2}', 'TriathlonDetailsController@destroy2');

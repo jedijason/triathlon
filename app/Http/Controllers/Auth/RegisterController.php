@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    // origianl
+    // original
      //protected $redirectTo = RouteServiceProvider::HOME;
 
     // updated to support different user roles. from video
@@ -94,7 +94,7 @@ class RegisterController extends Controller
             'email'      => $data['email'],
             'password'   => Hash::make($data['password']),
         ]);
-        $user->attachRole('user'); // or admin or superadministrator etc
+        $user->attachRole('user'); // user or administrator or superadministrator or role_name?
         return $user;
 
     }

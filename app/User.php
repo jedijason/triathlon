@@ -7,11 +7,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 
-class User extends Authenticatable
-{
-    use LaratrustUserTrait;
-    use Notifiable;
+//class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 
+{   use Notifiable;
+    use LaratrustUserTrait;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +22,7 @@ class User extends Authenticatable
      protected $fillable = [
         'name', 'email', 'password',
     ];//*/
+
 
     protected $fillable = [
         'first_name', 'last_name', 'dob', 'sex', 'email', 'password',
@@ -44,3 +46,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 }
+ 

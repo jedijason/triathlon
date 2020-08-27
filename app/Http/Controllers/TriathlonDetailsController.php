@@ -15,7 +15,8 @@ class TriathlonDetailsController extends Controller
     // authenticate user roles
     public function __construct()
     {
-        //$this->middleware('auth');
+
+        $this->middleware(['auth', 'verified']);
         $this->middleware('role:user|superadministrator');
     }
 
